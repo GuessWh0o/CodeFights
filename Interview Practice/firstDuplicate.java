@@ -41,7 +41,7 @@ int firstDuplicate(int[] a) {
         } else if(hm.containsKey(a[i])) {
             int firstOccurence = hm.get(a[i]);
             int distance = i - firstOccurence;
-            hm.put(a[i], distance);  //previous - this      
+            hm.put(a[i], i);  //previous - this      
              if(smallestDistance == -1) {
                  smallestDistance = distance;
                  elementToReturn = a[i];
