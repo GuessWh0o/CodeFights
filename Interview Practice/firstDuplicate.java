@@ -30,26 +30,22 @@ If there are no such elements, return -1.
 
 
 int firstDuplicate(int[] a) {
-    int smallestDistance = -1;
-    int elementToReturn = -1;
-    
-    HashMap<Integer, Integer> hm = new HashMap<>();
-    
-    for(int i = 0; i < a.length; i++) {
-        if(!hm.containsKey(a[i])) {
-            hm.put(a[i], i);
-        } else if(hm.containsKey(a[i])) {
-            int firstOccurence = hm.get(a[i]);
-            int distance = i - firstOccurence;
-            hm.put(a[i], i);  //previous - this      
-             if(smallestDistance == -1) {
-                 smallestDistance = distance;
-                 elementToReturn = a[i];
-             } else if(distance < smallestDistance) {
-                 smallestDistance = distance;
-                 elementToReturn = a[i];
-             }
-        }
+   Map<Integer, Integer> second = new HashMap<Integer, Integer>();
+   Set<Integer> first = new HashSet<Integer>();
+   for (int i = 0; i < a.length; ++i) {
+      int num = a[i];
+      if (first.contains(num) && !second.containsKey(num)) {
+         second.put(num, i);
+      }
+      first.add(num);
+   }
+   int selected = -1;
+   int minIndex = a.length;
+   for (Map.Entry<Integer, Integer> entry : second.entrySet()) {
+      if (entry.getValue() < minIndex) {
+         minIndex = entry.getValue();
+         selected = entry.getKey();
+      }
     }
-    return elementToReturn;
+   return selected;
 }
